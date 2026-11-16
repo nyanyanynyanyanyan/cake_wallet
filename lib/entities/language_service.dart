@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 class LanguageService {
   static const Map<String, String> supportedLocales = {
     'en': 'English',
+    'bn': 'বাংলা (Bengali)',
     'de': 'Deutsch (German)',
     'es': 'Español (Spanish)',
     'fa': 'فارسی (Persian)',
@@ -13,6 +14,9 @@ class LanguageService {
     'hi': 'हिंदी (Hindi)',
     'ja': '日本 (Japanese)',
     'ko': '한국어 (Korean)',
+    'mr': 'मराठी (Marathi)',
+    'ta': 'தமிழ் (Tamil)',
+    'te': 'తెలుగు (Telugu)',
     'nl': 'Nederlands (Dutch)',
     'pl': 'Polski (Polish)',
     'pt': 'Português (Portuguese)',
