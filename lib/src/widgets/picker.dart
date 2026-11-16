@@ -334,7 +334,10 @@ class _PickerState<Item> extends State<Picker<Item>> {
       mainAxisAlignment: widget.mainAxisAlignment,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        image ?? Offstage(),
+        if (image != null)
+          SizedBox(width: 42, height: 26, child: image)
+        else
+          Offstage(),
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(left: image != null ? 12 : 0),
@@ -422,7 +425,10 @@ class _PickerState<Item> extends State<Picker<Item>> {
       mainAxisAlignment: widget.mainAxisAlignment,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        image ?? Offstage(),
+        if (image != null)
+          SizedBox(width: 42, height: 26, child: image)
+        else
+          Offstage(),
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(left: image != null ? 12 : 0),

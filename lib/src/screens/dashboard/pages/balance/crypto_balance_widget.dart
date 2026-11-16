@@ -259,7 +259,8 @@ class CryptoBalanceWidget extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              GestureDetector(
+                              Flexible(
+                                child: GestureDetector(
                                 behavior: HitTestBehavior.opaque,
                                 onTap: () => launchUrl(
                                   Uri.parse(
@@ -268,13 +269,15 @@ class CryptoBalanceWidget extends StatelessWidget {
                                 ),
                                 child: Row(
                                   children: [
-                                    Text(
-                                      S.of(context).what_is_silent_payments,
-                                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                            color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                            height: 1,
-                                          ),
-                                      softWrap: true,
+                                    Expanded(
+                                      child: Text(
+                                        S.of(context).what_is_silent_payments,
+                                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                              height: 1,
+                                            ),
+                                        softWrap: true,
+                                      ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -286,7 +289,7 @@ class CryptoBalanceWidget extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                              ),
+                              )),
                               Observer(
                                 builder: (_) => StandardSwitch(
                                   value: dashboardViewModel.silentPaymentsScanningActive,
