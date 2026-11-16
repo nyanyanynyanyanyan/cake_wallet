@@ -176,36 +176,33 @@ void checkLocale(String lang, Map<String, String> source) {
     final enPlaceholders = placeholders(en);
     final placeholdersTarget = placeholders(value);
 
-    final unknown = placeholdersTarget.where((p) => !enPlaceholders.contains(p)).toList();
-    if (unknown.isNotEmpty) {
-      _warnings.add(Finding(lang, 'ph-rename', key,
-          'placeholder(s) ${unknown.join(", ")} not in English: $en'));
-    } else if (placeholdersTarget.length > enPlaceholders.length) {
-      _warnings.add(Finding(lang, 'ph-extra', key,
-          'uses ${placeholdersTarget.length} placeholders, English uses ${enPlaceholders.length}'));
-    }
+    final enNames = enPlaceholders.toSet().toList();
+    final targetNames = placeholdersTarget.toSet().toList();
 
-    if (unknown.isEmpty && placeholdersTarget.length == enPlaceholders.length) {
-      for (var i = 0; i < placeholdersTarget.length; i++) {
-        if (placeholdersTarget[i] != enPlaceholders[i]) {
-          _warnings.add(Finding(lang, 'ph-order', key,
-              'placeholder $i is ${placeholdersTarget[i]}, English has ${enPlaceholders[i]}'));
-          break;
+    if (targetNames.length < enNames.length) {
+      _errors.add(Finding(lang, 'ph-missing', key,
+          'uses ${targetNames.length} distinct placeholder(s), English uses ${enNames.length}: ${enNames.join(", ")}'));
+    } else if (targetNames.length > enNames.length) {
+      _errors.add(Finding(lang, 'ph-extra', key,
+          'uses ${targetNames.length} distinct placeholder(s), English uses ${enNames.length}'));
+    } else if (enNames.isNotEmpty) {
+      final sameNames = targetNames.every(enNames.contains) && enNames.every(targetNames.contains);
+      if (sameNames) {
+        for (var i = 0; i < targetNames.length; i++) {
+          if (targetNames[i] != enNames[i]) {
+            _errors.add(Finding(lang, 'ph-order', key,
+                'slot $i is ${targetNames[i]}, English has ${enNames[i]}'));
+            break;
+          }
         }
+      } else {
+        _warnings.add(Finding(lang, 'ph-rename', key,
+            'placeholder names differ from English: ${targetNames.join(", ")} vs ${enNames.join(", ")}'));
       }
-    }
-
-    for (final p in enPlaceholders.toSet()) {
-      final want = enPlaceholders.where((e) => e == p).length;
-      final got = placeholdersTarget.where((e) => e == p).length;
-      if (got > want) {
-        _errors.add(Finding(lang, 'ph-count', key,
-            'placeholder $p used $got times, English uses $want'));
+      if (placeholdersTarget.length != enPlaceholders.length) {
+        _warnings.add(Finding(lang, 'ph-repeat', key,
+            '${placeholdersTarget.length} placeholder occurrence(s), English uses ${enPlaceholders.length}'));
       }
-    }
-
-    if (placeholdersTarget.isEmpty && enPlaceholders.isNotEmpty) {
-      _errors.add(Finding(lang, 'ph-dropped', key, 'drops ${enPlaceholders.join(", ")}'));
     }
 
     final enLeading = en.startsWith(' ');
@@ -261,10 +258,12 @@ void main(List<String> args) {
   var langs = <String>[];
   var strict = false;
   var updateBaseline = false;
+  var pruneBaseline = false;
 
   for (final arg in args) {
     if (arg == '--strict') strict = true;
     if (arg == '--update-baseline') updateBaseline = true;
+    if (arg == '--prune-baseline') pruneBaseline = true;
     final langArg = RegExp(r'^--lang=(.+)$').firstMatch(arg);
     if (langArg != null) langs = langArg.group(1)!.split(',');
   }
@@ -293,6 +292,11 @@ void main(List<String> args) {
   if (updateBaseline) {
     writeBaseline({...baseline, ..._errors.map((f) => f.id), ..._warnings.map((f) => f.id)});
     stdout.writeln('Baseline updated: ${baselinePath}');
+    return;
+  }
+  if (pruneBaseline) {
+    writeBaseline({..._errors.map((f) => f.id), ..._warnings.map((f) => f.id)});
+    stdout.writeln('Baseline rebuilt from current findings: ${baselinePath}');
     return;
   }
 
