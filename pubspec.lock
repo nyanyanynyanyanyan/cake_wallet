@@ -1092,8 +1092,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: c24ee99f2f3070ea02d8108bbdd7727d73f7e5f1
-      resolved-ref: c24ee99f2f3070ea02d8108bbdd7727d73f7e5f1
+      ref: "38cf86b9846ca48f0a0b35959c24ebf81cdfedbf"
+      resolved-ref: "38cf86b9846ca48f0a0b35959c24ebf81cdfedbf"
       url: "https://github.com/MrCyjaneK/flutter_daemon"
     source: git
     version: "0.0.1"

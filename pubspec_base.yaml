@@ -144,7 +144,7 @@ dependencies:
   flutter_daemon:
     git:
       url: https://github.com/MrCyjaneK/flutter_daemon
-      ref: c24ee99f2f3070ea02d8108bbdd7727d73f7e5f1
+      ref: 38cf86b9846ca48f0a0b35959c24ebf81cdfedbf
   flutter_local_notifications: ^19.0.0
   ur:
     git:

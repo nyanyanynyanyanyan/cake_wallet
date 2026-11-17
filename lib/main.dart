@@ -231,6 +231,9 @@ Future<void> initializeAppAtRoot({bool reInitializing = false}) async {
 
 Future<void> initializeAppConfigs({bool loadWallet = true}) async {
   setRootDirFromEnv();
+  if (db == null) {
+    await initDb();
+  }
   final appDir = await getAppDir();
   CakeHive.init(appDir.path);
 

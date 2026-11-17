@@ -9,9 +9,11 @@ import 'package:cake_wallet/reactions/wallet_connect.dart';
 import 'package:cake_wallet/store/settings_store.dart';
 import 'package:cake_wallet/utils/feature_flag.dart';
 import 'package:cake_wallet/utils/tor.dart';
-import 'package:cake_wallet/view_model/wallet_list/wallet_list_item.dart';
-import 'package:cake_wallet/view_model/wallet_list/wallet_list_view_model.dart';
 import 'package:cw_core/sync_status.dart';
+import 'package:cw_core/utils/proxy_wrapper.dart';
+import 'package:cw_core/utils/tor/abstract.dart';
+import 'package:cw_core/utils/tor/disabled.dart';
+import 'package:cw_core/wallet_info.dart';
 import 'package:cw_core/transaction_direction.dart';
 import 'package:cw_core/utils/print_verbose.dart';
 import 'package:cw_core/wallet_type.dart';
@@ -97,8 +99,11 @@ class BackgroundSync {
   Future<void> sync() async {
     final settingsStore = getIt.get<SettingsStore>();
     if (settingsStore.currentBuiltinTor) {
+      CakeTor.instance = await CakeTorInstance.getInstance();
       printV("Starting Tor");
       await ensureTorStarted(context: null);
+    } else {
+      CakeTor.instance = CakeTorDisabled();
     }
     printV("Background sync started");
     await _syncWallets();
@@ -107,16 +112,21 @@ class BackgroundSync {
 
   Future<void> _syncWallets() async {
     final walletLoadingService = getIt.get<WalletLoadingService>();
-    final walletListViewModel = getIt.get<WalletListViewModel>();
     final settingsStore = getIt.get<SettingsStore>();
 
-    final List<WalletListItem> moneroWallets = walletListViewModel.wallets
-        .where((element) => !element.isHardware)
-        .where((element) => ![WalletType.haven, WalletType.decred].contains(element.type))
+
+
+    final moneroWallets = (await WalletInfo.getAll())
+        .where((info) => !info.isHardwareWallet)
+        .where((info) => ![WalletType.haven, WalletType.decred, WalletType.wownero, WalletType.zano].contains(info.type))
         .toList();
+    printV("Background sync wallet count: ${moneroWallets.length}");
     for (int i = 0; i < moneroWallets.length; i++) {
-      final wallet = await walletLoadingService.load(moneroWallets[i].type, moneroWallets[i].name,
-          isBackground: true);
+      final wallet = await walletLoadingService.load(
+        moneroWallets[i].type,
+        moneroWallets[i].name,
+        isBackground: true,
+      );
       int syncedTicks = 0;
       final keyService = getIt.get<KeyService>();
 
