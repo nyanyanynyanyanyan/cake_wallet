@@ -82,14 +82,17 @@ class SelectButton extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   image ?? Offstage(),
-                  Padding(
-                    padding: image != null ? EdgeInsets.only(left: 15) : EdgeInsets.only(left: 0),
-                    child: Text(
-                      text,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontSize: textSize,
-                        fontWeight: FontWeight.w500,
-                        color: effectiveTextColor,
+                  Flexible(
+                    child: Padding(
+                      padding: image != null ? EdgeInsets.only(left: 15) : EdgeInsets.only(left: 0),
+                      child: Text(
+                        text,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontSize: textSize,
+                          fontWeight: FontWeight.w500,
+                          color: effectiveTextColor,
+                        ),
                       ),
                     ),
                   )
