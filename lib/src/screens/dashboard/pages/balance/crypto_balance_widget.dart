@@ -268,8 +268,9 @@ class CryptoBalanceWidget extends StatelessWidget {
                                   mode: LaunchMode.externalApplication,
                                 ),
                                 child: Row(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Expanded(
+                                    Flexible(
                                       child: Text(
                                         S.of(context).what_is_silent_payments,
                                         style: Theme.of(context).textTheme.bodySmall?.copyWith(

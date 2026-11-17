@@ -335,7 +335,11 @@ class _PickerState<Item> extends State<Picker<Item>> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         if (image != null)
-          SizedBox(width: 42, height: 26, child: image)
+          SizedBox(
+            width: 42,
+            height: 26,
+            child: FittedBox(fit: BoxFit.contain, child: image),
+          )
         else
           Offstage(),
         Expanded(
@@ -426,7 +430,11 @@ class _PickerState<Item> extends State<Picker<Item>> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         if (image != null)
-          SizedBox(width: 42, height: 26, child: image)
+          SizedBox(
+            width: 42,
+            height: 26,
+            child: FittedBox(fit: BoxFit.contain, child: image),
+          )
         else
           Offstage(),
         Expanded(
