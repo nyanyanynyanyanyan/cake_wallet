@@ -488,6 +488,10 @@ abstract class BalanceViewModelBase with Store {
       record = formattedBalances.elementAtOrNull(0);
     }
 
+    return getDisplayBalanceRecord(record);
+  }
+
+  BalanceRecord? getDisplayBalanceRecord(BalanceRecord? record) {
     if (record != null &&
         simulatorStore.isEnabled &&
         wallet.type == WalletType.monero &&
@@ -515,7 +519,7 @@ abstract class BalanceViewModelBase with Store {
         fiatSecondAdditionalBalanceRaw: record.fiatSecondAdditionalBalanceRaw,
         secondAsset: record.secondAsset,
         fiatCurrency: record.fiatCurrency,
-        formattedAssetTitle: '${record.formattedAssetTitle} · DEMO',
+        formattedAssetTitle: record.formattedAssetTitle,
         languageCode: record.languageCode,
       );
     }

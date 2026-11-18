@@ -50,8 +50,9 @@ jobs:
       - name: Sign in to GitHub Container Registry
         run: |
           go install github.com/google/go-containerregistry/cmd/crane@v0.22.1
-          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
-          echo "${{ secrets.GITHUB_TOKEN }}" | crane auth login ghcr.io -u "${{ github.actor }}" --password-stdin
+          CRANE_BIN="$(go env GOPATH)/bin"
+          echo "$CRANE_BIN" >> "$GITHUB_PATH"
+          echo "${{ secrets.GITHUB_TOKEN }}" | "$CRANE_BIN/crane" auth login ghcr.io -u "${{ github.actor }}" --password-stdin
 
       - name: Fetch the iOS Torch framework
         env:
@@ -82,17 +83,19 @@ jobs:
           popd
           sed -i '' -e '/WowneroWallet\.xcframework/d' -e '/ZanoWallet\.xcframework/d' ios/Runner.xcodeproj/project.pbxproj
 
-      - name: Prepare app dependencies and Monero-only demo app
+      - name: Prepare Cake Wallet demo app
         run: |
           ./scripts/prepare_reown.sh
           pushd scripts/ios
             source ./app_env.sh monero.com
-            export APP_IOS_NAME="Cake Demo"
+            export APP_IOS_NAME="Cake Wallet"
             export APP_IOS_VERSION="1.0.0"
             export APP_IOS_BUILD_NUMBER="${GITHUB_RUN_NUMBER}"
             export APP_IOS_BUNDLE_ID="com.demo.cakewallet"
             ./app_config.sh
           popd
+          rm -rf ios/AppIcon.icon
+          cp -R assets/images/ios_icons/cakewallet-app.icon ios/AppIcon.icon
           dart run tool/generate_new_secrets.dart
 
       - name: Generate models, translations, and graphics
@@ -110,10 +113,10 @@ jobs:
           test -d build/ios/iphoneos/Runner.app
           mkdir -p "$RUNNER_TEMP/ipa/Payload" build/ios/ipa
           ditto build/ios/iphoneos/Runner.app "$RUNNER_TEMP/ipa/Payload/Runner.app"
-          (cd "$RUNNER_TEMP/ipa" && zip -qr "$GITHUB_WORKSPACE/build/ios/ipa/Cake-Demo-unsigned.ipa" Payload)
+          (cd "$RUNNER_TEMP/ipa" && zip -qr "$GITHUB_WORKSPACE/build/ios/ipa/Cake-Wallet-Demo-unsigned.ipa" Payload)
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: Cake-Demo-unsigned-IPA
-          path: build/ios/ipa/Cake-Demo-unsigned.ipa
+          name: Cake-Wallet-Demo-unsigned-IPA
+          path: build/ios/ipa/Cake-Wallet-Demo-unsigned.ipa
           if-no-files-found: error

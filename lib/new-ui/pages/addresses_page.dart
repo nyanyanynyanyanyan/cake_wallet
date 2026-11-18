@@ -329,7 +329,14 @@ class AccountPreviewHeader extends StatelessWidget {
                   decoration:
                       BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerHigh),
                 ),
-                Text(dashboardViewModel.balanceViewModel.balances.values.first.availableBalance)
+                Observer(
+                  builder: (_) {
+                    final balance = dashboardViewModel.balanceViewModel
+                        .getMainBalanceRecord(false);
+                    final amount = balance?.availableBalance ?? '0';
+                    return Text(amount);
+                  },
+                )
               ],
             )
           ],

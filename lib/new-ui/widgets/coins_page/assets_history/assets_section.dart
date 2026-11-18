@@ -57,8 +57,10 @@ class AssetsSection extends StatelessWidget {
                   );
                 }
 
+                final balanceViewModel = dashboardViewModel.balanceViewModel;
+                final rawBalance = balanceViewModel.formattedBalances.elementAt(index);
                 final balance =
-                    dashboardViewModel.balanceViewModel.formattedBalances.elementAt(index);
+                    balanceViewModel.getDisplayBalanceRecord(rawBalance) ?? rawBalance;
                 return AssetTile(
                   showSwap: dashboardViewModel.isEnabledSwapAction,
                   showBridgeButton: dashboardViewModel.showBridge(balance.asset),

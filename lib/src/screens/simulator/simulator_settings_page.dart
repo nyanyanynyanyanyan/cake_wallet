@@ -85,7 +85,7 @@ class _SimulatorSettingsPageState extends State<SimulatorSettingsPage> {
               child: SwitchListTile(
                 title: const Text('Enable simulator'),
                 subtitle: const Text(
-                    'Displays a clearly labeled demo XMR balance. This does not change wallet funds or transaction history.'),
+                    'Displays a simulated XMR balance and simulated entries in history. It does not change real wallet funds or real transaction history.'),
                 value: store.isEnabled,
                 onChanged: (v) => store.setEnabled(v),
               ),

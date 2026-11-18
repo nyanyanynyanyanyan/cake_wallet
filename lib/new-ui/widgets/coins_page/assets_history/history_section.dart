@@ -102,6 +102,10 @@ class HistorySection extends StatelessWidget {
 
                             return _historyRow(
                               onTap: () {
+                                if (transaction.additionalInfo['isSimulatorDemo'] == true) {
+                                  return;
+                                }
+
                                 final page =
                                     getIt.get<TransactionDetailsModal>(param1: transaction);
                                 if (detailsAsPage) {

@@ -56,7 +56,7 @@ class AssetTile extends StatelessWidget {
                     asset: balance.asset,
                     title: title ?? balance.asset.fullName ?? balance.asset.name,
                     chainTitle: "",
-                    subtitle: trailingText ?? _getChainTitle(),
+                    subtitle: _getSubtitle(),
                     amount:
                         showSecondary ? balance.secondAvailableBalance : balance.availableBalance,
                     currencyTitle: balance.asset.title,
@@ -179,4 +179,9 @@ class AssetTile extends StatelessWidget {
   }
 
   String _getChainTitle() => walletTypeToDisplayName(wallet.type);
+
+  String _getSubtitle() {
+    final subtitle = trailingText ?? _getChainTitle();
+    return subtitle;
+  }
 }

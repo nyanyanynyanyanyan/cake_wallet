@@ -181,7 +181,7 @@ class SettingsPageSectionsResolver {
   List<SettingsListItem> appSettings() => [
         SettingsListItem(
           "assets/new-ui/settings_row_icons/display.svg",
-          'Balance Simulator (DEMO)',
+          'Balance Simulator',
           Routes.simulatorSettings,
         ),
         SettingsListItem(

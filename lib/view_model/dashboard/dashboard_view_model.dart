@@ -49,6 +49,7 @@ import 'package:cake_wallet/view_model/dashboard/filter_item.dart';
 import 'package:cake_wallet/view_model/dashboard/formatted_item_list.dart';
 import 'package:cake_wallet/view_model/dashboard/order_list_item.dart';
 import 'package:cake_wallet/view_model/dashboard/payjoin_transaction_list_item.dart';
+import 'package:cake_wallet/view_model/dashboard/simulated_transaction_list_item.dart';
 import 'package:cake_wallet/view_model/dashboard/trade_list_item.dart';
 import 'package:cake_wallet/view_model/dashboard/transaction_list_item.dart';
 import 'package:cake_wallet/view_model/settings/sync_mode.dart';
@@ -773,8 +774,21 @@ abstract class DashboardViewModelBase with Store {
   List<ActionListItem> get items {
     final _items = <ActionListItem>[];
 
-    _items.addAll(
-        transactionFilterStore.filtered(transactions: [...transactions, ...anonpayTransactions]));
+    final historyTransactions = <ActionListItem>[...transactions];
+    if (wallet.type == WalletType.monero && balanceViewModel.simulatorStore.isEnabled) {
+      historyTransactions.addAll(
+        balanceViewModel.simulatorStore.transactions.map(
+          (transaction) => SimulatedTransactionListItem(
+            transaction: transaction,
+            balanceViewModel: balanceViewModel,
+            appStore: appStore,
+          ),
+        ),
+      );
+    }
+
+    _items.addAll(transactionFilterStore.filtered(
+        transactions: [...historyTransactions, ...anonpayTransactions]));
     _items.addAll(tradeFilterStore.filtered(trades: trades, wallet: wallet));
     _items.addAll(orderFilterStore.filtered(orders: orders, wallet: wallet));
 
