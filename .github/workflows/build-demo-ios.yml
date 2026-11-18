@@ -5,47 +5,14 @@ on:
 
 permissions:
   contents: read
+  packages: read
 
 defaults:
   run:
     shell: bash
 
 jobs:
-  prepare-torch:
-    runs-on: ubuntu-24.04
-    permissions:
-      contents: read
-      packages: write
-    env:
-      CW_DOCKER_USE_CLOUD: "true"
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
-      - name: Sign in to GitHub Container Registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-      - name: Build and store iOS Torch framework
-        run: |
-          export CW_DOCKER_REGISTRY="ghcr.io/${GITHUB_REPOSITORY,,}"
-          ./scripts/ios/docker/build.sh --only torch
-
-  prepare-monero:
-    needs: prepare-torch
-    runs-on: ubuntu-24.04
-    permissions:
-      contents: read
-      packages: write
-    env:
-      CW_DOCKER_USE_CLOUD: "true"
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
-      - name: Sign in to GitHub Container Registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-      - name: Build and store iOS Monero framework
-        run: |
-          export CW_DOCKER_REGISTRY="ghcr.io/${GITHUB_REPOSITORY,,}"
-          ./scripts/ios/docker/build.sh --only monero --merge
-
   build-unsigned-ipa:
-    needs: [prepare-torch, prepare-monero]
     runs-on: macos-26
     timeout-minutes: 360
     permissions:
@@ -95,7 +62,7 @@ jobs:
         env:
           CW_DOCKER_USE_CLOUD: "true"
         run: |
-          export CW_DOCKER_REGISTRY="ghcr.io/${GITHUB_REPOSITORY,,}"
+          export CW_DOCKER_REGISTRY="ghcr.io/cake-tech/cake_wallet"
           IMAGE="$(./scripts/ios/docker/build.sh --image torch)"
           TMP="$(mktemp -d)"
           crane export "$IMAGE" - | tar -x -C "$TMP"
@@ -104,12 +71,11 @@ jobs:
           test -d scripts/torch_dart/ios/LibTorch.xcframework/ios-arm64
 
       - name: Fetch Monero and create its iOS framework
-        env:
-          CW_DOCKER_USE_CLOUD: "true"
         run: |
           set -euo pipefail
-          export CW_DOCKER_REGISTRY="ghcr.io/${GITHUB_REPOSITORY,,}"
-          IMAGE="$(./scripts/ios/docker/build.sh --image monero)"
+          MONERO_DOCKERFILE_HASH="$(cat scripts/ios/docker/Dockerfile.monero | shasum -a 256 | cut -c1-6)"
+          MONERO_VERSION_HASH="$(cat scripts/ios/docker/Dockerfile.monero scripts/functions.sh scripts/prepare_moneroc.sh scripts/ios/build_monero_all.sh | shasum -a 256 | cut -c1-6)"
+          IMAGE="ghcr.io/cake-tech/cake_wallet:ios-deps-monero-${MONERO_DOCKERFILE_HASH}-${MONERO_VERSION_HASH}-monero-aarch64-apple-ios"
           TMP="$(mktemp -d)"
           crane export "$IMAGE" - | tar -x -C "$TMP"
           rsync -a "$TMP/w/" .
