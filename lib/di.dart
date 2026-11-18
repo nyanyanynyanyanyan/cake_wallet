@@ -289,6 +289,7 @@ import 'package:hive/hive.dart';
 import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trezor_connect/trezor_connect.dart';
+import 'package:cake_wallet/store/simulator_store.dart';
 
 import 'buy/kryptonim/kryptonim.dart';
 import 'buy/meld/meld_buy_provider.dart';
@@ -515,7 +516,8 @@ Future<void> setup({
   getIt.registerFactory(() => BalanceViewModel(
       appStore: getIt.get<AppStore>(),
       settingsStore: getIt.get<SettingsStore>(),
-      fiatConversionStore: getIt.get<FiatConversionStore>()));
+      fiatConversionStore: getIt.get<FiatConversionStore>(),
+      simulatorStore: getIt.get<SimulatorStore>()));
 
   getIt.registerFactory(
     () => ExchangeViewModel(
@@ -571,6 +573,8 @@ Future<void> setup({
   });
 
   getIt.registerLazySingleton<PriceStore>(() => PriceStore(settingsStore: getIt.get<SettingsStore>()));
+  getIt.registerLazySingleton<SimulatorStore>(() => SimulatorStore());
+  getIt.get<SimulatorStore>().load();
 
   getIt.registerFactory<ChartsBloc>(
           () => ChartsBloc(appStore: getIt.get<AppStore>(), priceStore: getIt.get<PriceStore>()));

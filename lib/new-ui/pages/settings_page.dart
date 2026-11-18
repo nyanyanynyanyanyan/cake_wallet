@@ -180,6 +180,11 @@ class SettingsPageSectionsResolver {
 
   List<SettingsListItem> appSettings() => [
         SettingsListItem(
+          "assets/new-ui/settings_row_icons/display.svg",
+          'Balance Simulator (DEMO)',
+          Routes.simulatorSettings,
+        ),
+        SettingsListItem(
           "assets/new-ui/settings_row_icons/connections.svg",
           S.current.connections,
           Routes.connectionSync,

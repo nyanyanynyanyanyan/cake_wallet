@@ -1,0 +1,134 @@
+[35mlib/anonpay/anonpay_api.dart[m[36m:[m[32m143[m[36m:[m      fiatRate = await FiatConversionService.fetch[1;31mPrice[m(
+[35mlib/buy/buy_quote.dart[m[36m:[m[32m206[m[36m:[m        ? json['quoteCurrency[1;31mPrice[m'] as double? ?? 0.0
+[35mlib/buy/buy_quote.dart[m[36m:[m[32m207[m[36m:[m        : json['baseCurrency[1;31mPrice[m'] as double? ?? 0.0;
+[35mlib/buy/buy_quote.dart[m[36m:[m[32m273[m[36m:[m      rate: _toDouble(json['[1;31mprice[m']) ?? 0.0,
+[35mlib/cake_pay/src/models/cake_pay_order.dart[m[36m:[m[32m74[m[36m:[m      final [1;31mprice[m = uri.queryParameters['amount'] ?? data.[1;31mprice[m;
+[35mlib/cake_pay/src/models/cake_pay_order.dart[m[36m:[m[32m77[m[36m:[m          [1;31mprice[m: [1;31mprice[m, address: addr, amount: data.amount, paymentUrls: data.paymentUrls);
+[35mlib/cake_pay/src/models/cake_pay_order.dart[m[36m:[m[32m98[m[36m:[m  final String [1;31mprice[m;
+[35mlib/cake_pay/src/models/cake_pay_order.dart[m[36m:[m[32m107[m[36m:[m    required this.[1;31mprice[m,
+[35mlib/cake_pay/src/models/cake_pay_order.dart[m[36m:[m[32m118[m[36m:[m      [1;31mprice[m: map['[1;31mprice[m'] as String,
+[35mlib/cake_pay/src/models/cake_pay_order.dart[m[36m:[m[32m175[m[36m:[m  final String [1;31mprice[m;
+[35mlib/cake_pay/src/models/cake_pay_order.dart[m[36m:[m[32m181[m[36m:[m    required this.[1;31mprice[m,
+[35mlib/cake_pay/src/models/cake_pay_order.dart[m[36m:[m[32m189[m[36m:[m      [1;31mprice[m: map['[1;31mprice[m'] as String,
+[35mlib/cake_pay/src/services/cake_pay_api.dart[m[36m:[m[32m102[m[36m:[m    required String [1;31mprice[m,
+[35mlib/cake_pay/src/services/cake_pay_api.dart[m[36m:[m[32m120[m[36m:[m      '[1;31mprice[m': [1;31mprice[m,
+[35mlib/cake_pay/src/services/cake_pay_service.dart[m[36m:[m[32m94[m[36m:[m    required String [1;31mprice[m,
+[35mlib/cake_pay/src/services/cake_pay_service.dart[m[36m:[m[32m105[m[36m:[m        [1;31mprice[m: [1;31mprice[m,
+[35mlib/core/fiat_conversion_service.dart[m[36m:[m[32m1[m[36m:[mimport "package:cake_wallet/new-ui/model/charts/[1;31mprice[m_api_client.dart";
+[35mlib/core/fiat_conversion_service.dart[m[36m:[m[32m5[m[36m:[m/// Override specific [CryptoCurrency] to fix its [1;31mprice[m to the [1;31mprice[m of another
+[35mlib/core/fiat_conversion_service.dart[m[36m:[m[32m6[m[36m:[m/// e.g. nDEPS should have the same [1;31mprice[m as DEPS, but only DEPS is tracked
+[35mlib/core/fiat_conversion_service.dart[m[36m:[m[32m13[m[36m:[m  static Future<double> fetch[1;31mPrice[m({
+[35mlib/core/fiat_conversion_service.dart[m[36m:[m[32m19[m[36m:[m      return double.parse((await [1;31mPrice[mApiClient.getLatest[1;31mPrice[m(
+[35mlib/core/fiat_conversion_service.dart[m[36m:[m[32m20[m[36m:[m            Latest[1;31mPrice[mRequest(
+[35mlib/di.dart[m[36m:[m[32m55[m[36m:[mimport 'package:cake_wallet/new-ui/model/charts/[1;31mprice[m_store.dart';
+[35mlib/di.dart[m[36m:[m[32m573[m[36m:[m  getIt.registerLazySingleton<[1;31mPrice[mStore>(() => [1;31mPrice[mStore(settingsStore: getIt.get<SettingsStore>()));
+[35mlib/di.dart[m[36m:[m[32m576[m[36m:[m          () => ChartsBloc(appStore: getIt.get<AppStore>(), [1;31mprice[mStore: getIt.get<[1;31mPrice[mStore>()));
+[35mlib/entities/calculate_fiat_amount.dart[m[36m:[m[32m3[m[36m:[mString calculateFiatAmount({double? [1;31mprice[m, String? cryptoAmount, bool raw = false}) {
+[35mlib/entities/calculate_fiat_amount.dart[m[36m:[m[32m4[m[36m:[m  if ([1;31mprice[m == null || cryptoAmount == null) {
+[35mlib/entities/calculate_fiat_amount.dart[m[36m:[m[32m12[m[36m:[m  final _result = [1;31mprice[m * _amount;
+[35mlib/entities/calculate_fiat_amount_raw.dart[m[36m:[m[32m3[m[36m:[mString calculateFiatAmountRaw({required double cryptoAmount, double? [1;31mprice[m}) {
+[35mlib/entities/calculate_fiat_amount_raw.dart[m[36m:[m[32m4[m[36m:[m  if ([1;31mprice[m == null) {
+[35mlib/entities/calculate_fiat_amount_raw.dart[m[36m:[m[32m8[m[36m:[m  final result = [1;31mprice[m * cryptoAmount;
+[35mlib/entities/erc20_token_info_explorers.dart[m[36m:[m[32m24[m[36m:[m  String? token[1;31mPrice[mUSD;
+[35mlib/entities/erc20_token_info_explorers.dart[m[36m:[m[32m50[m[36m:[m    this.token[1;31mPrice[mUSD,
+[35mlib/entities/erc20_token_info_explorers.dart[m[36m:[m[32m77[m[36m:[m    token[1;31mPrice[mUSD = json['token[1;31mPrice[mUSD'] as String?;
+[35mlib/entities/evm_transaction_error_fees_handler.dart[m[36m:[m[32m33[m[36m:[m    double asset[1;31mPrice[mUsd,
+[35mlib/entities/evm_transaction_error_fees_handler.dart[m[36m:[m[32m106[m[36m:[m      // Pattern 5: Generic "insufficient funds for gas * [1;31mprice[m + value" (least specific - must be last)
+[35mlib/entities/evm_transaction_error_fees_handler.dart[m[36m:[m[32m109[m[36m:[m        regex: RegExp(r'insufficient\s+funds\s+for\s+gas\s*\*\s*[1;31mprice[m\s*\+\s*value',
+[35mlib/entities/evm_transaction_error_fees_handler.dart[m[36m:[m[32m131[m[36m:[m          return _createHandlerFromValues(calculatedValues, asset[1;31mPrice[mUsd);
+[35mlib/entities/evm_transaction_error_fees_handler.dart[m[36m:[m[32m144[m[36m:[m    double asset[1;31mPrice[mUsd,
+[35mlib/entities/evm_transaction_error_fees_handler.dart[m[36m:[m[32m163[m[36m:[m    final balanceUsd = balanceEth * asset[1;31mPrice[mUsd;
+[35mlib/entities/evm_transaction_error_fees_handler.dart[m[36m:[m[32m164[m[36m:[m    final txCostUsd = txCostEth * asset[1;31mPrice[mUsd;
+[35mlib/entities/evm_transaction_error_fees_handler.dart[m[36m:[m[32m165[m[36m:[m    final overshotUsd = overshotEth * asset[1;31mPrice[mUsd;
+[35mlib/evm/cw_evm.dart[m[36m:[m[32m701[m[36m:[m  Future<double> _fetchFiatApi[1;31mPrice[mForToken(Erc20Token token) async {
+[35mlib/evm/cw_evm.dart[m[36m:[m[32m706[m[36m:[m      return await FiatConversionService.fetch[1;31mPrice[m(
+[35mlib/evm/cw_evm.dart[m[36m:[m[32m738[m[36m:[m          final moralis[1;31mPrice[m = item.moralisUsd[1;31mPrice[m;
+[35mlib/evm/cw_evm.dart[m[36m:[m[32m740[m[36m:[m          final hasMoralis[1;31mPrice[m = moralis[1;31mPrice[m != null && moralis[1;31mPrice[m > 0;
+[35mlib/evm/cw_evm.dart[m[36m:[m[32m742[m[36m:[m          final fiatApi[1;31mPrice[m = await _fetchFiatApi[1;31mPrice[mForToken(token);
+[35mlib/evm/cw_evm.dart[m[36m:[m[32m743[m[36m:[m          final hasFiatApi[1;31mPrice[m = fiatApi[1;31mPrice[m > 0;
+[35mlib/evm/cw_evm.dart[m[36m:[m[32m746[m[36m:[m              hasFiatApi[1;31mPrice[m && !hasMoralis[1;31mPrice[m && !isWhitelisted && !item.verifiedContract;
+[35mlib/evm/cw_evm.dart[m[36m:[m[32m751[m[36m:[m              (!hasMoralis[1;31mPrice[m && !hasFiatApi[1;31mPrice[m);
+[35mlib/evm/cw_evm.dart[m[36m:[m[32m755[m[36m:[m              hasMoralis[1;31mPrice[m && hasFiatApi[1;31mPrice[m && (moralisValue >= _minTokenUsdValue) && !isSpam;
+[35mlib/exchange/provider/chainflip_exchange_provider.dart[m[36m:[m[32m184[m[36m:[m      final estimated[1;31mPrice[m = quoteResponse['estimated[1;31mPrice[m'] as double;
+[35mlib/exchange/provider/chainflip_exchange_provider.dart[m[36m:[m[32m185[m[36m:[m      final minimum[1;31mPrice[m = estimated[1;31mPrice[m * (100 - maxSlippage) / 100;
+[35mlib/exchange/provider/chainflip_exchange_provider.dart[m[36m:[m[32m193[m[36m:[m        'minimum[1;31mPrice[m': minimum[1;31mPrice[m.toString(),
+[35mlib/exchange/provider/chainflip_exchange_provider.dart[m[36m:[m[32m230[m[36m:[m          'estimated[1;31mPrice[m': estimated[1;31mPrice[m,
+[35mlib/exchange/provider/chainflip_exchange_provider.dart[m[36m:[m[32m231[m[36m:[m          'minimum[1;31mPrice[m': minimum[1;31mPrice[m,
+[35mlib/exchange/provider/near_Intents_exchange_provider.dart[m[36m:[m[32m598[m[36m:[m  final double [1;31mprice[mUsd;
+[35mlib/exchange/provider/near_Intents_exchange_provider.dart[m[36m:[m[32m599[m[36m:[m  final String? [1;31mprice[mUpdatedAt;
+[35mlib/exchange/provider/near_Intents_exchange_provider.dart[m[36m:[m[32m607[m[36m:[m    required this.[1;31mprice[mUsd,
+[35mlib/exchange/provider/near_Intents_exchange_provider.dart[m[36m:[m[32m608[m[36m:[m    required this.[1;31mprice[mUpdatedAt,
+[35mlib/exchange/provider/near_Intents_exchange_provider.dart[m[36m:[m[32m622[m[36m:[m      [1;31mprice[mUsd: (json['[1;31mprice[m'] as num?)?.toDouble() ?? 0.0,
+[35mlib/exchange/provider/near_Intents_exchange_provider.dart[m[36m:[m[32m623[m[36m:[m      [1;31mprice[mUpdatedAt: json['[1;31mprice[mUpdatedAt'] as String?,
+[35mlib/exchange/provider/swaptrade_exchange_provider.dart[m[36m:[m[32m131[m[36m:[m      double rate = double.parse(data['[1;31mprice[m'].toString());
+[35mlib/new-ui/model/charts/charts_asset.dart[m[36m:[m[32m1[m[36m:[mimport "package:cake_wallet/new-ui/model/charts/[1;31mprice[m_data.dart";
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m5[m[36m:[mimport "package:cake_wallet/new-ui/model/charts/[1;31mprice[m_data.dart";
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m11[m[36m:[mconst [1;31mprice[mApiHost = "[1;31mprice[ms.cakewallet.com";
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m12[m[36m:[mconst [1;31mprice[mApiHostOnion = "cakeprcgc6mywkgmft2qd7qkkzddsfdmvcia7geilte7qhd2vazgi6id.onion";
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m14[m[36m:[mclass Latest[1;31mPrice[mRequest {
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m15[m[36m:[m  Latest[1;31mPrice[mRequest({required this.from, required this.to});
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m20[m[36m:[m  Uri get uri => Uri.https([1;31mprice[mApiHost, "/v3/rates", {
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m25[m[36m:[m  Uri get onionUri => Uri.http([1;31mprice[mApiHostOnion, uri.path, uri.queryParameters);
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m28[m[36m:[mclass [1;31mPrice[mRequest {
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m29[m[36m:[m  const [1;31mPrice[mRequest({
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m43[m[36m:[m  Uri get uri => Uri.https([1;31mprice[mApiHost, "/v3/rates", {
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m52[m[36m:[m  Uri get onionUri => Uri.http([1;31mprice[mApiHostOnion, uri.path, uri.queryParameters);
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m55[m[36m:[mclass [1;31mPrice[mApiClient {
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m71[m[36m:[m  static Future<List<[1;31mPrice[mData>> get[1;31mPrice[ms([1;31mPrice[mRequest request, {bool torOnly = false}) async {
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m72[m[36m:[m    final List<[1;31mPrice[mData> ret = [];
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m86[m[36m:[m        [1;31mPrice[mData(
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m96[m[36m:[m  static Future<[1;31mPrice[mData?> getLatest[1;31mPrice[m(
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m97[m[36m:[m    Latest[1;31mPrice[mRequest request, {
+[35mlib/new-ui/model/charts/price_api_client.dart[m[36m:[m[32m109[m[36m:[m    return [1;31mPrice[mData(
+[35mlib/new-ui/model/charts/price_data.dart[m[36m:[m[32m27[m[36m:[mclass [1;31mPrice[mData implements Comparable<[1;31mPrice[mData> {
+[35mlib/new-ui/model/charts/price_data.dart[m[36m:[m[32m28[m[36m:[m  const [1;31mPrice[mData({required this.time, required this.base, required this.quote,});
+[35mlib/new-ui/model/charts/price_data.dart[m[36m:[m[32m30[m[36m:[m  factory [1;31mPrice[mData.fromJson(Map<String, dynamic> json) => [1;31mPrice[mData(
+[35mlib/new-ui/model/charts/price_data.dart[m[36m:[m[32m34[m[36m:[m            json["[1;31mprice[m"] as String, currencyFromApiString(json["toCurrency"] as String),
+[35mlib/new-ui/model/charts/price_data.dart[m[36m:[m[32m41[m[36m:[m  static const tableName = "[1;31mPrice[mData";
+[35mlib/new-ui/model/charts/price_data.dart[m[36m:[m[32m45[m[36m:[m        "[1;31mprice[m": quote.toString(),
+[35mlib/new-ui/model/charts/price_data.dart[m[36m:[m[32m50[m[36m:[m  static Future<List<[1;31mPrice[mData>> get(
+[35mlib/new-ui/model/charts/price_data.dart[m[36m:[m[32m67[m[36m:[m    return List.generate(json.length, (index) => [1;31mPrice[mData.fromJson(json[index]));
+[35mlib/new-ui/model/charts/price_data.dart[m[36m:[m[32m74[m[36m:[m  static Future<void> insertMany(Iterable<[1;31mPrice[mData> data) async {
+[35mlib/new-ui/model/charts/price_data.dart[m[36m:[m[32m94[m[36m:[m      other is [1;31mPrice[mData &&
+[35mlib/new-ui/model/charts/price_data.dart[m[36m:[m[32m103[m[36m:[m  int compareTo([1;31mPrice[mData other) => time.compareTo(other.time);
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m2[m[36m:[mimport "package:cake_wallet/new-ui/model/charts/[1;31mprice[m_api_client.dart";
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m3[m[36m:[mimport "package:cake_wallet/new-ui/model/charts/[1;31mprice[m_data.dart";
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m9[m[36m:[mabstract class [1;31mPrice[mSource {
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m10[m[36m:[m  const [1;31mPrice[mSource();
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m12[m[36m:[m  Future<List<[1;31mPrice[mData>> get(
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m22[m[36m:[mmixin Updatable[1;31mPrice[mSource {
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m23[m[36m:[m  Future<void> update(Iterable<[1;31mPrice[mData> newData);
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m26[m[36m:[mclass Database[1;31mPrice[mSource extends [1;31mPrice[mSource with Updatable[1;31mPrice[mSource {
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m27[m[36m:[m  const Database[1;31mPrice[mSource();
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m30[m[36m:[m  Future<List<[1;31mPrice[mData>> get(
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m38[m[36m:[m      [1;31mPrice[mData.get(from, to, start, end);
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m41[m[36m:[m  Future<void> update(Iterable<[1;31mPrice[mData> newData) async {
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m42[m[36m:[m    await [1;31mPrice[mData.insertMany(newData);
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m46[m[36m:[mclass Api[1;31mPrice[mSource extends [1;31mPrice[mSource {
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m47[m[36m:[m  const Api[1;31mPrice[mSource();
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m50[m[36m:[m  Future<List<[1;31mPrice[mData>> get(
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m58[m[36m:[m      [1;31mPrice[mApiClient.get[1;31mPrice[ms(
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m60[m[36m:[m        [1;31mPrice[mRequest(beginTime: start, interval: interval, from: from, to: to),
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m64[m[36m:[mclass [1;31mPrice[mStore {
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m65[m[36m:[m  const [1;31mPrice[mStore({required this.settingsStore});
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m69[m[36m:[m  static const [1;31mprice[mSources = [
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m70[m[36m:[m    // TODO InMemory[1;31mPrice[mSource() - easily implementable w this pattern but idk if we need to optimize this that much
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m71[m[36m:[m    Database[1;31mPrice[mSource(),
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m72[m[36m:[m    Api[1;31mPrice[mSource(),
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m75[m[36m:[m  Future<List<[1;31mPrice[mData>> get[1;31mPrice[ms(Currency from, Currency to, ChartRange range) async {
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m76[m[36m:[m    final Set<[1;31mPrice[mData> data = {};
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m88[m[36m:[m    for (final source in [1;31mprice[mSources) {
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m92[m[36m:[m      start = _firstUnavailable[1;31mPrice[m(data.toList(), range.dataPrecision, start, end);
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m98[m[36m:[m    for (final source in [1;31mprice[mSources) {
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m99[m[36m:[m      if (source case final Updatable[1;31mPrice[mSource s) {
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m107[m[36m:[m  static List<[1;31mPrice[mData> _alignedData(
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m110[m[36m:[m    Iterable<[1;31mPrice[mData> data,
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m126[m[36m:[m  static DateTime? _firstUnavailable[1;31mPrice[m(
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m127[m[36m:[m    List<[1;31mPrice[mData> [1;31mprice[ms,
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m132[m[36m:[m    if ([1;31mprice[ms.isEmpty) {
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m135[m[36m:[m    [1;31mprice[ms.sort();
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m139[m[36m:[m    for (final [1;31mprice[m in [1;31mprice[ms) {
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m140[m[36m:[m      if ([1;31mprice[m.time.millisecondsSinceEpoch % precisionMs != 0 || [1;31mprice[m.time.isBefore(start)) {
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m143[m[36m:[m      if ([1;31mprice[m.time.difference(expected) > precision) {
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m146[m[36m:[m      expected = [1;31mprice[m.time.add(precision);
+[35mlib/new-ui/model/charts/price_store.dart[m[36m:[m[32m152[m[36m:[m    final last = [1;31mprice[ms.last;

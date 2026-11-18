@@ -27,6 +27,7 @@ import 'package:cw_core/spl_token.dart';
 import 'package:cw_core/transaction_info.dart';
 import 'package:cw_core/wallet_type.dart';
 import 'package:mobx/mobx.dart';
+import 'package:cake_wallet/store/simulator_store.dart';
 
 part 'balance_view_model.g.dart';
 
@@ -106,7 +107,7 @@ class BalanceViewModel = BalanceViewModelBase with _$BalanceViewModel;
 
 abstract class BalanceViewModelBase with Store {
   BalanceViewModelBase(
-      {required this.appStore, required this.settingsStore, required this.fiatConversionStore})
+      {required this.appStore, required this.settingsStore, required this.fiatConversionStore, required this.simulatorStore})
       : isReversing = false,
         isShowCard = appStore.wallet?.walletInfo.isShowIntroCakePayCard ?? false,
         wallet = appStore.wallet! {
@@ -129,6 +130,7 @@ abstract class BalanceViewModelBase with Store {
   final AppStore appStore;
   final SettingsStore settingsStore;
   final FiatConversionStore fiatConversionStore;
+  final SimulatorStore simulatorStore;
 
   @observable
   bool isReversing;
@@ -419,7 +421,6 @@ abstract class BalanceViewModelBase with Store {
         final aHasBalance = (double.tryParse(a.availableBalance) ?? 0) > 0;
         final bHasBalance = (double.tryParse(b.availableBalance) ?? 0) > 0;
 
-        // Adding this so tokens with balance come before tokens without balance
         if (aIsToken && bIsToken) {
           if (aHasBalance && !bHasBalance) return -1;
           if (!aHasBalance && bHasBalance) return 1;
@@ -446,19 +447,62 @@ abstract class BalanceViewModelBase with Store {
     return balance;
   }
 
-  BalanceRecord? getMainBalanceRecord(bool lightningMode) {
-    if (lightningMode) {
-      return formattedBalances.elementAtOrNull(1);
-    }
+  String _buildSimulatedFiat(double xmrAmount, CryptoCurrency asset) {
+    final price = fiatConversionStore.prices[asset] ?? 0;
+    if (price == 0) return '';
+    return calculateFiatAmount(
+      price: price,
+      cryptoAmount: xmrAmount.toString(),
+      raw: true,
+    );
+  }
 
-    if (wallet.walletInfo.favoriteTokenAddress != null) {
-      return formattedBalances.firstWhereOrNull((item) =>
+  BalanceRecord? getMainBalanceRecord(bool lightningMode) {
+    BalanceRecord? record;
+    if (lightningMode) {
+      record = formattedBalances.elementAtOrNull(1);
+    } else if (wallet.walletInfo.favoriteTokenAddress != null) {
+      record = formattedBalances.firstWhereOrNull((item) =>
               (getTokenAddressBasedOnWallet(item.asset) ==
                   wallet.walletInfo.favoriteTokenAddress)) ??
           formattedBalances.elementAtOrNull(0);
+    } else {
+      record = formattedBalances.elementAtOrNull(0);
     }
 
-    return formattedBalances.elementAtOrNull(0);
+    if (record != null &&
+        simulatorStore.isEnabled &&
+        wallet.type == WalletType.monero &&
+        record.asset == CryptoCurrency.xmr &&
+        displayMode != BalanceDisplayMode.hiddenBalance) {
+      final fakeAmount = simulatorStore.simulatedXmrAmount;
+      final fakeStr = fakeAmount.toStringAsFixed(12)
+          .replaceAll(RegExp(r'0+$'), '')
+          .replaceAll(RegExp(r'\.$'), '.0');
+
+      return BalanceRecord(
+        raw: record.raw,
+        asset: record.asset,
+        availableBalance: fakeStr,
+        additionalBalance: record.additionalBalance,
+        frozenBalance: record.frozenBalance,
+        secondAvailableBalance: record.secondAvailableBalance,
+        secondAdditionalBalance: record.secondAdditionalBalance,
+        fiatAvailableBalanceRaw: isFiatDisabled
+            ? ''
+            : _buildSimulatedFiat(fakeAmount, record.asset),
+        fiatAdditionalBalanceRaw: record.fiatAdditionalBalanceRaw,
+        fiatFrozenBalanceRaw: record.fiatFrozenBalanceRaw,
+        fiatSecondAvailableBalanceRaw: record.fiatSecondAvailableBalanceRaw,
+        fiatSecondAdditionalBalanceRaw: record.fiatSecondAdditionalBalanceRaw,
+        secondAsset: record.secondAsset,
+        fiatCurrency: record.fiatCurrency,
+        formattedAssetTitle: '${record.formattedAssetTitle} · DEMO',
+        languageCode: record.languageCode,
+      );
+    }
+
+    return record;
   }
 
   String? getTokenAddressBasedOnWallet(CryptoCurrency asset) {

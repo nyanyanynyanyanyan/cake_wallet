@@ -94,6 +94,7 @@ import 'package:cake_wallet/src/screens/settings/privacy_page.dart';
 import 'package:cake_wallet/src/screens/settings/security_backup_page.dart';
 import 'package:cake_wallet/src/screens/settings/silent_payments_settings.dart';
 import 'package:cake_wallet/src/screens/settings/silent_payments_logs_page.dart';
+import 'package:cake_wallet/src/screens/simulator/simulator_settings_page.dart';
 import 'package:cake_wallet/src/screens/setup_2fa/modify_2fa_page.dart';
 import 'package:cake_wallet/src/screens/setup_2fa/setup_2fa.dart';
 import 'package:cake_wallet/src/screens/setup_2fa/setup_2fa_enter_code_page.dart';
@@ -119,6 +120,7 @@ import 'package:cake_wallet/src/screens/wallet_unlock/wallet_unlock_page.dart';
 import 'package:cake_wallet/src/screens/welcome/create_pin_welcome_page.dart';
 import 'package:cake_wallet/src/screens/welcome/welcome_page.dart';
 import 'package:cake_wallet/store/settings_store.dart';
+import 'package:cake_wallet/store/simulator_store.dart';
 import 'package:cake_wallet/utils/payment_request.dart';
 import 'package:cake_wallet/view_model/advanced_privacy_settings_view_model.dart';
 import 'package:cake_wallet/view_model/bridge/bridge_view_model.dart';
@@ -831,6 +833,11 @@ Route<dynamic> createRoute(RouteSettings settings) {
     case Routes.homeSettings:
       return CupertinoPageRoute<void>(
         builder: (_) => getIt.get<HomeSettingsPage>(param1: settings.arguments),
+      );
+
+    case Routes.simulatorSettings:
+      return CupertinoPageRoute<void>(
+        builder: (_) => SimulatorSettingsPage(simulatorStore: getIt.get<SimulatorStore>()),
       );
 
     case Routes.editToken:

@@ -45,7 +45,7 @@ packages:
     source: git
     version: "1.3.0"
   another_flushbar:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: a334e8e2dfbe3d5e531b63f72164093aa399047b
@@ -63,7 +63,7 @@ packages:
     source: git
     version: "2.0.3"
   archive:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: f01d6a340ffe24e0ef46fa682d1b6bcc7b7aef13
@@ -99,7 +99,7 @@ packages:
     source: git
     version: "2.13.1"
   auto_size_text:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "2178f0821132636bc4f0dea1bc4d40a889d8249b"
@@ -117,7 +117,7 @@ packages:
     source: git
     version: "3.2.1"
   base32:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "6ed989354aee7865ee74f3f1802268dd81bb234d"
@@ -144,7 +144,7 @@ packages:
     source: git
     version: "2.0.1"
   basic_utils:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "6a5034927857a08f3bdf5a177529e361179f6dab"
@@ -153,7 +153,7 @@ packages:
     source: git
     version: "5.7.0"
   bbqrdart:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: e867e3d0156d0b29858100f30adc2625b9dae586
@@ -206,15 +206,6 @@ packages:
       url: "https://github.com/cake-tech/bitbox-flutter.git"
     source: git
     version: "1.0.1"
-  bitbox_flutter:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: "3d1c607f14c6d5bace2971ec4c10b5201053cc56"
-      resolved-ref: "3d1c607f14c6d5bace2971ec4c10b5201053cc56"
-      url: "https://github.com/cake-tech/bitbox_flutter.git"
-    source: git
-    version: "0.1.0"
   bitcoin_base:
     dependency: "direct overridden"
     description:
@@ -225,7 +216,7 @@ packages:
     source: git
     version: "4.7.0"
   bloc:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/bloc"
       ref: "60892540c1faec3fd01cc8c8fea378a59cf42e3d"
@@ -234,7 +225,7 @@ packages:
     source: git
     version: "9.2.1"
   bloc_concurrency:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/bloc_concurrency"
       ref: "13dbe0ce078e7efaebb54b37489879daeb57459d"
@@ -243,7 +234,7 @@ packages:
     source: git
     version: "0.3.0"
   blockchain_utils:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "59fdf29d72068e0522a96a8953ed7272833a9f57"
@@ -351,7 +342,7 @@ packages:
     source: git
     version: "4.1.5"
   build_runner:
-    dependency: "direct dev"
+    dependency: "direct overridden"
     description:
       path: build_runner
       ref: "565856b394c26a0d4c8cda88b69b6dcfaa2acd1f"
@@ -378,7 +369,7 @@ packages:
     source: git
     version: "8.12.7"
   cake_backup:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: b5d86a2a21e1c186cd0baa4df1f3a4f3f9413056
@@ -459,7 +450,7 @@ packages:
     source: git
     version: "1.19.1"
   connectivity_plus:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/connectivity_plus/connectivity_plus"
       ref: "9f03424b7916b195ec6a4bebe4cc1a310ba40d4a"
@@ -513,7 +504,7 @@ packages:
     source: git
     version: "0.3.5+4"
   crypto:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "pkgs/crypto"
       ref: e6c3810cdbbd6b483973f4685e950644114b495e
@@ -522,7 +513,7 @@ packages:
     source: git
     version: "3.0.7"
   cryptography:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: cryptography
       ref: "87f42fad6f7f120feb8e47854164016ceac3dfd0"
@@ -540,7 +531,7 @@ packages:
     source: git
     version: "1.0.2"
   cupertino_icons:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "third_party/packages/cupertino_icons"
       ref: f330175dbf168a7bf94a127c492e025b4cc0bfba
@@ -548,104 +539,6 @@ packages:
       url: "https://github.com/flutter/packages"
     source: git
     version: "1.0.9"
-  cw_bitcoin:
-    dependency: "direct main"
-    description:
-      path: cw_bitcoin
-      relative: true
-    source: path
-    version: "0.0.1"
-  cw_bitcoin_cash:
-    dependency: "direct main"
-    description:
-      path: cw_bitcoin_cash
-      relative: true
-    source: path
-    version: "0.0.1"
-  cw_core:
-    dependency: "direct main"
-    description:
-      path: cw_core
-      relative: true
-    source: path
-    version: "0.0.1"
-  cw_decred:
-    dependency: "direct main"
-    description:
-      path: cw_decred
-      relative: true
-    source: path
-    version: "0.0.1"
-  cw_dogecoin:
-    dependency: "direct main"
-    description:
-      path: cw_dogecoin
-      relative: true
-    source: path
-    version: "0.0.1"
-  cw_evm:
-    dependency: "direct main"
-    description:
-      path: cw_evm
-      relative: true
-    source: path
-    version: "0.0.1"
-  cw_monero:
-    dependency: "direct main"
-    description:
-      path: cw_monero
-      relative: true
-    source: path
-    version: "0.0.1"
-  cw_mweb:
-    dependency: transitive
-    description:
-      path: cw_mweb
-      relative: true
-    source: path
-    version: "0.0.1"
-  cw_nano:
-    dependency: "direct main"
-    description:
-      path: cw_nano
-      relative: true
-    source: path
-    version: "0.0.1"
-  cw_solana:
-    dependency: "direct main"
-    description:
-      path: cw_solana
-      relative: true
-    source: path
-    version: "0.0.1"
-  cw_tron:
-    dependency: "direct main"
-    description:
-      path: cw_tron
-      relative: true
-    source: path
-    version: "0.0.1"
-  cw_wownero:
-    dependency: "direct main"
-    description:
-      path: cw_wownero
-      relative: true
-    source: path
-    version: "0.0.1"
-  cw_zano:
-    dependency: "direct main"
-    description:
-      path: cw_zano
-      relative: true
-    source: path
-    version: "0.0.1"
-  cw_zcash:
-    dependency: "direct main"
-    description:
-      path: cw_zcash
-      relative: true
-    source: path
-    version: "1.0.0"
   dart_style:
     dependency: "direct overridden"
     description:
@@ -692,7 +585,7 @@ packages:
     source: git
     version: "2.3.3"
   device_display_brightness:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "4cac18c446ce686f3d75b1565badbd7da439bbd9"
@@ -701,7 +594,7 @@ packages:
     source: git
     version: "0.0.6"
   device_info_plus:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/device_info_plus/device_info_plus"
       ref: "83f86a357da31c7e9c47ee668fe3142bafea9c91"
@@ -719,7 +612,7 @@ packages:
     source: git
     version: "7.0.3"
   devicelocale:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "3ed4bcc443a40da200af162f4b97d63d7b00d291"
@@ -728,7 +621,7 @@ packages:
     source: git
     version: "0.8.1"
   dio:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: dio
       ref: ef9dbb860c085a8e81ecd36d5bcf29d5672947e1
@@ -746,7 +639,7 @@ packages:
     source: git
     version: "2.2.1"
   dnssec_proof:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: b48a9defddce036048bae02e2069ebcbd6824afc
@@ -764,7 +657,7 @@ packages:
     source: git
     version: "3.0.0"
   dotted_border:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: a0168f4a4d410087afb378a06deb058cb92a9fb1
@@ -827,7 +720,7 @@ packages:
     source: git
     version: "1.0.2"
   encrypt:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "8581b81c060cde1c531e35a6eaa4b7324e9ab813"
@@ -836,7 +729,7 @@ packages:
     source: git
     version: "5.0.2"
   ens_dart:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "9fa09b9db69b8645d5d50a844652aa570451d101"
@@ -863,7 +756,7 @@ packages:
     source: git
     version: "1.0.1"
   eth_sig_util:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "6acd66a126f470b5541f089fdd1c079d35a59c9a"
@@ -899,7 +792,7 @@ packages:
     source: git
     version: "0.2.2"
   fast_scanner:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "69b3276b090fa6ac01b4483ca3adca93a8e615be"
@@ -935,7 +828,7 @@ packages:
     source: git
     version: "7.0.1"
   file_picker:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: c414574bc5ac349450f601e7f72c7b9f31b4d087
@@ -1039,7 +932,7 @@ packages:
     source: git
     version: "1.0.0"
   fl_chart:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: be14b9722b7f18310c869c930562b7871b0165ed
@@ -1075,12 +968,12 @@ packages:
     source: git
     version: "4.0.1"
   flutter:
-    dependency: "direct main"
+    dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
   flutter_bloc:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/flutter_bloc"
       ref: "59098d33f3eed63001d3170295d2bfa76fa84351"
@@ -1089,7 +982,7 @@ packages:
     source: git
     version: "9.1.1"
   flutter_daemon:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: c24ee99f2f3070ea02d8108bbdd7727d73f7e5f1
@@ -1097,11 +990,6 @@ packages:
       url: "https://github.com/MrCyjaneK/flutter_daemon"
     source: git
     version: "0.0.1"
-  flutter_driver:
-    dependency: transitive
-    description: flutter
-    source: sdk
-    version: "0.0.0"
   flutter_form_builder:
     dependency: "direct overridden"
     description:
@@ -1121,7 +1009,7 @@ packages:
     source: git
     version: "0.21.3+1"
   flutter_inappwebview:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: flutter_inappwebview
       ref: f67ae1f34868c7660c16a2473f53a7a7bfb6f784
@@ -1193,7 +1081,7 @@ packages:
     source: git
     version: "0.6.0"
   flutter_local_authentication:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "75c8681ebef62398a87c8ae0cccb7cfddffa9734"
@@ -1202,7 +1090,7 @@ packages:
     source: git
     version: "1.2.0"
   flutter_local_notifications:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: flutter_local_notifications
       ref: "6c7378ddb1ed7f885e1e80caa3df3bcfb0fe8707"
@@ -1238,12 +1126,12 @@ packages:
     source: git
     version: "1.0.3"
   flutter_localizations:
-    dependency: "direct main"
+    dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
   flutter_mailer:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "7280c3a17152be21be8bb2e172610dd8888049d2"
@@ -1252,7 +1140,7 @@ packages:
     source: git
     version: "3.0.2"
   flutter_mobx:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: flutter_mobx
       ref: "0cadcd03551baaae57788b7288e1245e6408d5cf"
@@ -1270,7 +1158,7 @@ packages:
     source: git
     version: "2.4.6"
   flutter_plugin_android_lifecycle:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/flutter_plugin_android_lifecycle"
       ref: "4afc383a6db56cb969af5d8ad02a1a0220758b66"
@@ -1297,7 +1185,7 @@ packages:
     source: git
     version: "2.11.1"
   flutter_secure_storage:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: flutter_secure_storage
       ref: ca897a08677edb443b366352dd7412735e098e7b
@@ -1360,7 +1248,7 @@ packages:
     source: git
     version: "0.1.3"
   flutter_slidable:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "7dbeb6667bf410d9a8401f0f8412e14669e7338f"
@@ -1378,7 +1266,7 @@ packages:
     source: git
     version: "5.2.2"
   flutter_svg:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "third_party/packages/flutter_svg"
       ref: ddc9430a0080bea73c5511732f396acde1f48fe0
@@ -1387,7 +1275,7 @@ packages:
     source: git
     version: "2.3.0"
   flutter_test:
-    dependency: "direct dev"
+    dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -1406,7 +1294,7 @@ packages:
     source: sdk
     version: "0.0.0"
   fluttertoast:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: e875d071da02fe6f3090794d1ac623093c3b7074
@@ -1441,11 +1329,6 @@ packages:
       url: "https://github.com/dart-lang/webdev"
     source: git
     version: "4.0.0"
-  fuchsia_remote_debug_protocol:
-    dependency: transitive
-    description: flutter
-    source: sdk
-    version: "0.0.0"
   gap:
     dependency: "direct overridden"
     description:
@@ -1456,7 +1339,7 @@ packages:
     source: git
     version: "3.0.1"
   get_it:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "974c0b367c58fd75e78f0d036147a6963392f975"
@@ -1519,7 +1402,7 @@ packages:
     source: git
     version: "4.0.1"
   hashlib:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "07848d0ebc5ff67dac0d2ecb638c3f4cd670d0cf"
@@ -1546,7 +1429,7 @@ packages:
     source: git
     version: "0.2.0"
   hive:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: hive
       ref: "470473ffc1ba39f6c90f31ababe0ee63b76b69fe"
@@ -1555,7 +1438,7 @@ packages:
     source: git
     version: "2.2.3"
   hive_flutter:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: hive_flutter
       ref: db56a26d5324a19373a35e365c50d808c6e1ce0c
@@ -1591,7 +1474,7 @@ packages:
     source: git
     version: "0.15.6"
   http:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "pkgs/http"
       ref: "907782f5a792e7a5b0ed92f118c0ad91f3ecde51"
@@ -1636,7 +1519,7 @@ packages:
     source: git
     version: "4.8.0"
   image_picker:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/image_picker/image_picker"
       ref: "2900bc94e9912486e3454223df2683a372f4e137"
@@ -1708,7 +1591,7 @@ packages:
     source: git
     version: "0.2.2"
   in_app_review:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: in_app_review
       ref: a08b2fcb98c74f2fa12b5f3c61b588b763430368
@@ -1725,13 +1608,8 @@ packages:
       url: "https://github.com/britannio/in_app_review"
     source: git
     version: "2.0.5"
-  integration_test:
-    dependency: "direct dev"
-    description: flutter
-    source: sdk
-    version: "0.0.0"
   intl:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "pkgs/intl"
       ref: a1dd8e1ff32e5b53bdf38511cd5d7524694af95a
@@ -1821,7 +1699,7 @@ packages:
     source: git
     version: "1.0.3"
   keyboard_actions:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: e197412c52cd75d8a7c7ac74558610c0f92635e4
@@ -1875,7 +1753,7 @@ packages:
     source: git
     version: "0.0.5"
   ledger_flutter_plus:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: a1f8080181ef4a7334df3afb8e01afd321a8090e
@@ -1910,6 +1788,14 @@ packages:
       url: "https://github.com/MrCyjaneK/libcrypto"
     source: git
     version: "0.2.2"
+  listen:
+    dependency: transitive
+    description:
+      name: listen
+      sha256: "47501a08016a43fcad79252439d723f50f14f88fa7bfd8a177e0a417e5c9e1f2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   local_auth:
     dependency: "direct overridden"
     description:
@@ -1920,7 +1806,7 @@ packages:
     source: git
     version: "2.3.0"
   local_auth_android:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/local_auth/local_auth_android"
       ref: "1c0be204c45eea42927eb6005bb45f16a8fffb07"
@@ -1965,7 +1851,7 @@ packages:
     source: git
     version: "2.7.0"
   logging:
-    dependency: "direct dev"
+    dependency: "direct overridden"
     description:
       path: "pkgs/logging"
       ref: "8151b9f57fa3fee10421a19ce24470e143c0dee5"
@@ -2013,10 +1899,10 @@ packages:
     dependency: transitive
     description:
       name: meta
-      sha256: "23f08335362185a5ea2ad3a4e597f1375e78bce8a040df5c600c8d3552ef2394"
+      sha256: "307249ce4ff29d58a18e97f6345f539382eb9c9c29ecda628900f31de0443dd9"
       url: "https://pub.dev"
     source: hosted
-    version: "1.17.0"
+    version: "1.19.0"
   mime:
     dependency: "direct overridden"
     description:
@@ -2027,7 +1913,7 @@ packages:
     source: git
     version: "2.0.0"
   mobx:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: mobx
       ref: d677b8d361301b60577267703371013749b7b7de
@@ -2036,7 +1922,7 @@ packages:
     source: git
     version: "2.6.0"
   mobx_codegen:
-    dependency: "direct dev"
+    dependency: "direct overridden"
     description:
       path: mobx_codegen
       ref: "39a1f18c2e76a564b5e5358426d335569bc332ec"
@@ -2054,7 +1940,7 @@ packages:
     source: git
     version: "5.6.4"
   mocktail:
-    dependency: "direct dev"
+    dependency: "direct overridden"
     description:
       path: "packages/mocktail"
       ref: "12989138eb6beb3d1cad330ebfd88fef005a4e3e"
@@ -2063,7 +1949,7 @@ packages:
     source: git
     version: "1.0.5"
   modal_bottom_sheet:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: modal_bottom_sheet
       ref: b1cca111c53d41b9f07123a8c67cfe06fb1b69bf
@@ -2090,7 +1976,7 @@ packages:
     source: git
     version: "1.0.1"
   msix:
-    dependency: "direct dev"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "1ab4df346a92ef4dc7bf02fd857d2975be04d47c"
@@ -2162,7 +2048,7 @@ packages:
     source: git
     version: "2.0.2"
   nostr_tools:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "089d5a2dd751429a040ba10fb24fcbae564053e5"
@@ -2180,7 +2066,7 @@ packages:
     source: git
     version: "9.5.0"
   on_chain:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "096865a8c6b89c260beadfec04f7e184c40a3273"
@@ -2198,7 +2084,7 @@ packages:
     source: git
     version: "2.2.0"
   package_info_plus:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/package_info_plus/package_info_plus"
       ref: "9f03424b7916b195ec6a4bebe4cc1a310ba40d4a"
@@ -2243,7 +2129,7 @@ packages:
     source: git
     version: "1.1.0"
   path_provider:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/path_provider/path_provider"
       ref: aa964a3ed6d97e4e9778feed85fa9ef1255a0477
@@ -2252,7 +2138,7 @@ packages:
     source: git
     version: "2.1.6"
   path_provider_android:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/path_provider/path_provider_android"
       ref: f52df418da6ef2ba666112b4b9e87d9a1c43a0d0
@@ -2315,7 +2201,7 @@ packages:
     source: git
     version: "0.23.0"
   pedantic:
-    dependency: "direct dev"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: bdcb962e3d2bda31a0e6dadb58b670aa633046e9
@@ -2324,7 +2210,7 @@ packages:
     source: git
     version: "1.11.1"
   permission_handler:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: permission_handler
       ref: "441c53c4e02ac9b6417f758495a4b04618c6e600"
@@ -2423,7 +2309,7 @@ packages:
     source: git
     version: "3.9.1"
   polyseed:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "1a8280ac2b6f01d202d8bff71527fe1ce498c4ed"
@@ -2513,7 +2399,7 @@ packages:
     source: git
     version: "3.0.2"
   qr_flutter:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: dced28909a82e1906e7c510ae8ca807a1658c898
@@ -2522,7 +2408,7 @@ packages:
     source: git
     version: "4.0.1"
   quick_actions:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/quick_actions/quick_actions"
       ref: "8238e1c5ada8c6a99f7fb6087484b52face33721"
@@ -2584,34 +2470,6 @@ packages:
       url: "https://github.com/dart-lang/native"
     source: git
     version: "0.6.0"
-  reown_core:
-    dependency: transitive
-    description:
-      path: "scripts/reown_flutter/packages/reown_core"
-      relative: true
-    source: path
-    version: "1.2.1"
-  reown_sign:
-    dependency: transitive
-    description:
-      path: "scripts/reown_flutter/packages/reown_sign"
-      relative: true
-    source: path
-    version: "1.2.0"
-  reown_walletkit:
-    dependency: "direct main"
-    description:
-      path: "scripts/reown_flutter/packages/reown_walletkit"
-      relative: true
-    source: path
-    version: "1.2.0"
-  reown_yttrium:
-    dependency: transitive
-    description:
-      path: "scripts/reown_flutter/packages/reown_yttrium"
-      relative: true
-    source: path
-    version: "0.0.1"
   rive:
     dependency: "direct overridden"
     description:
@@ -2658,7 +2516,7 @@ packages:
     source: git
     version: "0.0.1"
   rxdart:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/rxdart"
       ref: "6852efa646198d8a75fcaee52a5227682f8016e7"
@@ -2685,7 +2543,7 @@ packages:
     source: git
     version: "1.1.0"
   sensitive_clipboard:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "288c7ee2d63b459bc735f7dc89321b29a1f12fae"
@@ -2703,7 +2561,7 @@ packages:
     source: git
     version: "0.2.1"
   share_plus:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/share_plus/share_plus"
       ref: "8e5fab7bfb1685f5a56f53020a49b2ff5bece25d"
@@ -2721,7 +2579,7 @@ packages:
     source: git
     version: "5.0.2"
   shared_preferences:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/shared_preferences/shared_preferences"
       ref: "064b0b26568728342a550dc876b0a0e0f2fbaa84"
@@ -2730,7 +2588,7 @@ packages:
     source: git
     version: "2.5.3"
   shared_preferences_android:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/shared_preferences/shared_preferences_android"
       ref: "371106fe7d9864a157fc9366f57d0b0e64fab932"
@@ -2825,7 +2683,7 @@ packages:
     source: sdk
     version: "0.0.0"
   smooth_page_indicator:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "519df3304d58c9d77e91725318076bc3aaa6e852"
@@ -2834,7 +2692,7 @@ packages:
     source: git
     version: "1.2.1"
   socks5_proxy:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "27ad7c2efae8d7460325c74b90f660085cbd0685"
@@ -3093,15 +2951,8 @@ packages:
       url: "https://github.com/payam-zahedi/toastification"
     source: git
     version: "3.2.0"
-  torch_dart:
-    dependency: "direct main"
-    description:
-      path: "scripts/torch_dart"
-      relative: true
-    source: path
-    version: "0.0.1"
   translator:
-    dependency: "direct dev"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: b36571ec11efd838afda010adcc21a4e95302745
@@ -3110,7 +2961,7 @@ packages:
     source: git
     version: "1.0.0"
   trezor_connect:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: d1242cea90f84b00200e7bcab914a5af750e23fb
@@ -3119,7 +2970,7 @@ packages:
     source: git
     version: "0.0.1"
   trezor_flutter:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: trezor-flutter
       ref: "591d4b8c821b9c10561f848b866324a9a8dcb489"
@@ -3155,7 +3006,7 @@ packages:
     source: git
     version: "1.4.0"
   uni_links:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: uni_links
       ref: "1989db3f5d625e2fffbad7b85a3b1b8c78c6dfa1"
@@ -3218,7 +3069,7 @@ packages:
     source: git
     version: "0.3.2"
   ur:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "."
       ref: "5738f70d0ec3d50977ac3dd01fed62939600238b"
@@ -3227,7 +3078,7 @@ packages:
     source: git
     version: "0.1.0"
   url_launcher:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/url_launcher/url_launcher"
       ref: "3fe6a0149acebc9cb8707cf508d13f59fc372986"
@@ -3236,7 +3087,7 @@ packages:
     source: git
     version: "6.3.2"
   url_launcher_android:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/url_launcher/url_launcher_android"
       ref: "7287c7b7f1d51e8842f49df46dbd0af3bd1c1077"
@@ -3254,7 +3105,7 @@ packages:
     source: git
     version: "6.4.1"
   url_launcher_linux:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "packages/url_launcher/url_launcher_linux"
       ref: "73d2f3eb966d36a44cbb943ea0e96dda3a2f8da2"
@@ -3353,7 +3204,7 @@ packages:
     source: git
     version: "15.1.0"
   wakelock_plus:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: wakelock_plus
       ref: e7301f64397c946fac4ee66acdfb545b666f4a43
@@ -3515,5 +3366,5 @@ packages:
     source: git
     version: "6.35.0"
 sdks:
-  dart: ">=3.10.0 <4.0.0"
+  dart: ">=3.13.0-0 <4.0.0"
   flutter: ">=3.38.0"
