@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:async';
+import 'dart:io';
 import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -52,6 +54,69 @@ class SimulatorStore {
 
   double get simulatedXmrAmount => _simulatedXmrAmount.value;
   set simulatedXmrAmount(double value) => _simulatedXmrAmount.value = value;
+
+  final Observable<double?> _simulatedXmrPrice = Observable(null);
+  String? _priceCurrency;
+  DateTime? _lastPriceFetch;
+  Timer? _priceRefreshTimer;
+
+  double? get simulatedXmrPrice => _simulatedXmrPrice.value;
+
+  String? get simulatedPriceCurrency => _priceCurrency;
+
+  void startXmrPriceRefresh(String fiatCurrency) {
+    _priceRefreshTimer?.cancel();
+    refreshXmrPrice(fiatCurrency);
+    _priceRefreshTimer = Timer.periodic(
+      const Duration(seconds: 60),
+      (_) => refreshXmrPrice(fiatCurrency),
+    );
+  }
+
+  void stopXmrPriceRefresh() {
+    _priceRefreshTimer?.cancel();
+    _priceRefreshTimer = null;
+  }
+
+  Future<void> refreshXmrPrice(String fiatCurrency) async {
+    final currency = fiatCurrency.toUpperCase();
+    if (currency.isEmpty) return;
+
+    if (_priceCurrency != currency) {
+      _priceCurrency = currency;
+      _simulatedXmrPrice.value = null;
+      _lastPriceFetch = null;
+    }
+
+    final lastFetch = _lastPriceFetch;
+    if (lastFetch != null && DateTime.now().difference(lastFetch).inSeconds < 60) {
+      return;
+    }
+
+    _lastPriceFetch = DateTime.now();
+    final client = HttpClient()..connectionTimeout = const Duration(seconds: 10);
+    try {
+      final uri = Uri.https('api.coinpaprika.com', '/v1/tickers/xmr-monero', {
+        'quotes': currency,
+      });
+      final request = await client.getUrl(uri);
+      final response = await request.close().timeout(const Duration(seconds: 15));
+      if (response.statusCode != HttpStatus.ok) return;
+
+      final body = await response.transform(utf8.decoder).join();
+      final ticker = jsonDecode(body) as Map<String, dynamic>;
+      final quotes = ticker['quotes'] as Map<String, dynamic>?;
+      final quote = quotes?[currency] as Map<String, dynamic>?;
+      final price = (quote?['price'] as num?)?.toDouble();
+      if (price != null && price.isFinite && price > 0 && _priceCurrency == currency) {
+        _simulatedXmrPrice.value = price;
+      }
+    } catch (_) {
+      // A failed demo-price lookup leaves the last known price in place.
+    } finally {
+      client.close(force: true);
+    }
+  }
 
   final ObservableList<SimulatedTransaction> transactions =
       ObservableList<SimulatedTransaction>();

@@ -1,0 +1,157 @@
+name: Build Cake demo for iPhone
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  prepare-torch:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    env:
+      CW_DOCKER_USE_CLOUD: "true"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: Sign in to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+      - name: Build and store iOS Torch framework
+        run: |
+          export CW_DOCKER_REGISTRY="ghcr.io/${GITHUB_REPOSITORY,,}"
+          ./scripts/ios/docker/build.sh --only torch
+
+  prepare-monero:
+    needs: prepare-torch
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    env:
+      CW_DOCKER_USE_CLOUD: "true"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: Sign in to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+      - name: Build and store iOS Monero framework
+        run: |
+          export CW_DOCKER_REGISTRY="ghcr.io/${GITHUB_REPOSITORY,,}"
+          ./scripts/ios/docker/build.sh --only monero --merge
+
+  build-unsigned-ipa:
+    needs: [prepare-torch, prepare-monero]
+    runs-on: macos-26
+    timeout-minutes: 360
+    permissions:
+      contents: read
+      packages: read
+    env:
+      FLUTTER_VERSION: "3.41.9"
+      GO_VERSION: "1.24.1"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5.6.0
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Add Rust iOS target
+        run: rustup target add aarch64-apple-ios
+
+      - name: Install protoc
+        env:
+          PROTOC_VERSION: "35.1"
+        run: |
+          set -euo pipefail
+          curl -sSL --retry 3 --retry-delay 5 -o "$RUNNER_TEMP/protoc.zip" \
+            "https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-osx-universal_binary.zip"
+          unzip -q -o "$RUNNER_TEMP/protoc.zip" -d "$RUNNER_TEMP/protoc"
+          echo "$RUNNER_TEMP/protoc/bin" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/protoc/bin/protoc" --version
+
+      - name: Generate local build secrets
+        run: |
+          flutter pub get
+          dart run tool/generate_new_secrets.dart
+
+      - name: Sign in to GitHub Container Registry
+        run: |
+          go install github.com/google/go-containerregistry/cmd/crane@v0.22.1
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+          echo "${{ secrets.GITHUB_TOKEN }}" | crane auth login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Fetch the iOS Torch framework
+        env:
+          CW_DOCKER_USE_CLOUD: "true"
+        run: |
+          export CW_DOCKER_REGISTRY="ghcr.io/${GITHUB_REPOSITORY,,}"
+          IMAGE="$(./scripts/ios/docker/build.sh --image torch)"
+          TMP="$(mktemp -d)"
+          crane export "$IMAGE" - | tar -x -C "$TMP"
+          rsync -a "$TMP/w/" .
+          rm -rf "$TMP"
+          test -d scripts/torch_dart/ios/LibTorch.xcframework/ios-arm64
+
+      - name: Fetch Monero and create its iOS framework
+        env:
+          CW_DOCKER_USE_CLOUD: "true"
+        run: |
+          set -euo pipefail
+          export CW_DOCKER_REGISTRY="ghcr.io/${GITHUB_REPOSITORY,,}"
+          IMAGE="$(./scripts/ios/docker/build.sh --image monero)"
+          TMP="$(mktemp -d)"
+          crane export "$IMAGE" - | tar -x -C "$TMP"
+          rsync -a "$TMP/w/" .
+          rm -rf "$TMP"
+          MONEROC_TAG="$(find scripts/monero_c/release -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | head -n 1)"
+          test -n "$MONEROC_TAG"
+          pushd scripts/ios
+            MONEROC_TAG="$MONEROC_TAG" ./gen_framework.sh
+          popd
+          sed -i '' -e '/WowneroWallet\.xcframework/d' -e '/ZanoWallet\.xcframework/d' ios/Runner.xcodeproj/project.pbxproj
+
+      - name: Prepare app dependencies and Monero-only demo app
+        run: |
+          ./scripts/prepare_reown.sh
+          pushd scripts/ios
+            source ./app_env.sh monero.com
+            export APP_IOS_NAME="Cake Demo"
+            export APP_IOS_VERSION="1.0.0"
+            export APP_IOS_BUILD_NUMBER="${GITHUB_RUN_NUMBER}"
+            export APP_IOS_BUNDLE_ID="com.demo.cakewallet"
+            ./app_config.sh
+          popd
+
+      - name: Generate models, translations, and graphics
+        run: |
+          ./model_generator.sh
+          dart run tool/generate_localization.dart
+          ./compile_graphics.sh
+
+      - name: Build the iPhone app without signing
+        run: flutter build ios --release --no-codesign --dart-define=hasDevOptions=true
+
+      - name: Package the app for AltStore
+        run: |
+          set -euo pipefail
+          test -d build/ios/iphoneos/Runner.app
+          mkdir -p "$RUNNER_TEMP/ipa/Payload" build/ios/ipa
+          ditto build/ios/iphoneos/Runner.app "$RUNNER_TEMP/ipa/Payload/Runner.app"
+          (cd "$RUNNER_TEMP/ipa" && zip -qr "$GITHUB_WORKSPACE/build/ios/ipa/Cake-Demo-unsigned.ipa" Payload)
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: Cake-Demo-unsigned-IPA
+          path: build/ios/ipa/Cake-Demo-unsigned.ipa
+          if-no-files-found: error

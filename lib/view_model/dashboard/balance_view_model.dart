@@ -116,6 +116,23 @@ abstract class BalanceViewModelBase with Store {
       _checkMweb();
     });
 
+    reaction(
+      (_) => simulatorStore.isEnabled && wallet.type == WalletType.monero
+          ? settingsStore.fiatCurrency.symbol
+          : null,
+      (currency) {
+        if (currency == null) {
+          simulatorStore.stopXmrPriceRefresh();
+        } else {
+          simulatorStore.startXmrPriceRefresh(currency);
+        }
+      },
+    );
+
+    if (simulatorStore.isEnabled && wallet.type == WalletType.monero) {
+      simulatorStore.startXmrPriceRefresh(settingsStore.fiatCurrency.symbol);
+    }
+
     _checkMweb();
 
     reaction((_) => settingsStore.mwebAlwaysScan, (_) => _checkMweb());
@@ -448,7 +465,8 @@ abstract class BalanceViewModelBase with Store {
   }
 
   String _buildSimulatedFiat(double xmrAmount, CryptoCurrency asset) {
-    final price = fiatConversionStore.prices[asset] ?? 0;
+    final storedPrice = fiatConversionStore.prices[asset] ?? 0;
+    final price = storedPrice > 0 ? storedPrice : simulatorStore.simulatedXmrPrice ?? 0;
     if (price == 0) return '';
     return calculateFiatAmount(
       price: price,
