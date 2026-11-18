@@ -10,7 +10,6 @@ permissions:
 defaults:
   run:
     shell: bash
-    working-directory: .
 
 jobs:
   build-unsigned-ipa:
@@ -47,13 +46,6 @@ jobs:
           unzip -q -o "$RUNNER_TEMP/protoc.zip" -d "$RUNNER_TEMP/protoc"
           echo "$RUNNER_TEMP/protoc/bin" >> "$GITHUB_PATH"
           "$RUNNER_TEMP/protoc/bin/protoc" --version
-
-      - name: Generate local build secrets
-        run: |
-          pwd
-          test -f pubspec.yaml
-          flutter pub get
-          dart run tool/generate_new_secrets.dart
 
       - name: Sign in to GitHub Container Registry
         run: |
@@ -101,6 +93,7 @@ jobs:
             export APP_IOS_BUNDLE_ID="com.demo.cakewallet"
             ./app_config.sh
           popd
+          dart run tool/generate_new_secrets.dart
 
       - name: Generate models, translations, and graphics
         run: |
